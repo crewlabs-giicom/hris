@@ -1,0 +1,21 @@
+/* vue-sonner theme — matches the orange topbar gradient instead of the library default. */
+[data-sonner-toaster] {
+  --normal-bg: #fff;
+  --normal-border: #ededed;
+  --normal-text: #26293a;
+  --success-bg: #e7f6ee;
+  --success-border: #1f9254;
+  --success-text: #1f9254;
+  --error-bg: #fdecec;
+  --error-border: #fc6075;
+  --error-text: #c81e3a;
+  font-family: 'Inter', sans-serif;
+}
+
+[data-sonner-toast][data-type='success'] [data-icon] {
+  color: #1f9254;
+}
+
+[data-sonner-toast][data-type='error'] [data-icon] {
+  color: #fc6075;
+}
