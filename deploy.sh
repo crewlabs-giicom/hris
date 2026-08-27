@@ -36,6 +36,12 @@ git reset --hard "origin/$BRANCH" >> "$LOG_FILE" 2>&1
 echo "-> npm install (--include=dev)" >> "$LOG_FILE"
 npm install --include=dev >> "$LOG_FILE" 2>&1
 
+echo "-> db migrate (drizzle-kit migrate)" >> "$LOG_FILE"
+# Jalan sebelum build & sebelum app di-restart, biar skema DB udah siap
+# pas versi baru mulai nerima request. Kredensial DB dibaca dari .env
+# di SRC_DIR lewat drizzle.config.ts.
+npm run db:migrate >> "$LOG_FILE" 2>&1
+
 echo "-> npm run build" >> "$LOG_FILE"
 # .env di SRC_DIR ikut terbaca di sini. VAPID_PUBLIC_KEY masuk runtimeConfig.public
 # jadi nilainya ter-bundle saat build — harus sudah terisi sebelum langkah ini.
