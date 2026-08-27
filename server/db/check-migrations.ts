@@ -33,6 +33,11 @@ async function main() {
   // Penanda per-migration: kalau false, DDL migration itu belum jalan di DB ini.
   const probes: Array<[string, string]> = [
     ['0000 employees', "show tables like 'employees'"],
+    ['0000 shift', "show tables like 'shift'"],
+    ['0004 manual_attendances', "show tables like 'manual_attendances'"],
+    ['0004 manual_attendance_attachments', "show tables like 'manual_attendance_attachments'"],
+    ['0004 schedule', "show tables like 'schedule'"],
+    ['0004 schedule_adjustment', "show tables like 'schedule_adjustment'"],
     ['0005 employees.basic_salary', "show columns from employees like 'basic_salary'"],
     ['0005 attendance_consolidations', "show tables like 'attendance_consolidations'"],
   ]

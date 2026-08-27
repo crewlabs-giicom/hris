@@ -10,6 +10,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
+    "db:migrate:verbose": "tsx server/db/migrate.ts",
     "db:check": "tsx server/db/check-migrations.ts",
     "db:reset": "tsx server/db/reset.ts",
     "db:seed": "tsx server/db/seed.ts",
