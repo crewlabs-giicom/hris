@@ -10,6 +10,7 @@
 # ==========================================================
 
 set -e  # stop kalau ada command yang gagal
+set -o pipefail
 
 SRC_DIR="/home/giicom/js_app/hris"
 SERVE_DIR="/home/giicom/public_html/hris"
@@ -24,6 +25,16 @@ APP_URL="https://giicom.id/hris"
 
 # Sesuaikan kalau versi Node sistemnya beda dari 22
 export PATH="/opt/alt/alt-nodejs22/root/usr/bin:$PATH"
+
+# Semua langkah menulis ke $LOG_FILE, jadi kalau gagal CI cuma lihat exit code.
+# Trap ini menyalin ekor log ke stdout supaya alasannya kelihatan di GitHub Actions.
+on_error() {
+  local code=$?
+  echo "!!!!! Deploy GAGAL (exit $code) — 60 baris terakhir $LOG_FILE:"
+  tail -n 60 "$LOG_FILE" || true
+  exit "$code"
+}
+trap on_error ERR
 
 echo "===== Deploy started: $(date) =====" >> "$LOG_FILE"
 
