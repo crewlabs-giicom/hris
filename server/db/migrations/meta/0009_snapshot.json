@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "d0ec6bad-11f3-48d4-bb75-6ab8038f7eff",
-  "prevId": "105016fb-7ec8-479a-8a25-b63a89c7f867",
+  "id": "994f72cf-2cb0-4684-afab-de4a3cd6131e",
+  "prevId": "d0ec6bad-11f3-48d4-bb75-6ab8038f7eff",
   "tables": {
     "activation_tokens": {
       "name": "activation_tokens",
@@ -1620,6 +1620,13 @@
           "notNull": false,
           "autoincrement": false
         },
+        "category": {
+          "name": "category",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "status": {
           "name": "status",
           "type": "varchar(50)",
@@ -2502,8 +2509,8 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "asset_request_detail_images_asset_request_detail_id_asset_request_details_id_fk": {
-          "name": "asset_request_detail_images_asset_request_detail_id_asset_request_details_id_fk",
+        "asset_req_det_img_det_id_fk": {
+          "name": "asset_req_det_img_det_id_fk",
           "tableFrom": "asset_request_detail_images",
           "tableTo": "asset_request_details",
           "columnsFrom": [
@@ -2519,6 +2526,181 @@
       "compositePrimaryKeys": {
         "asset_request_detail_images_id": {
           "name": "asset_request_detail_images_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "asset_depreciation_runs": {
+      "name": "asset_depreciation_runs",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "period_date": {
+          "name": "period_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "total_assets": {
+          "name": "total_assets",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "total_amount": {
+          "name": "total_amount",
+          "type": "decimal(15,2)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "asset_depreciation_runs_created_by_users_id_fk": {
+          "name": "asset_depreciation_runs_created_by_users_id_fk",
+          "tableFrom": "asset_depreciation_runs",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "asset_depreciation_runs_id": {
+          "name": "asset_depreciation_runs_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "asset_depreciation_logs": {
+      "name": "asset_depreciation_logs",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "run_id": {
+          "name": "run_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "asset_id": {
+          "name": "asset_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "period_date": {
+          "name": "period_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "amount": {
+          "name": "amount",
+          "type": "decimal(15,2)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "remaining_age": {
+          "name": "remaining_age",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "remaining_value": {
+          "name": "remaining_value",
+          "type": "decimal(15,2)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "asset_depreciation_logs_run_id_asset_depreciation_runs_id_fk": {
+          "name": "asset_depreciation_logs_run_id_asset_depreciation_runs_id_fk",
+          "tableFrom": "asset_depreciation_logs",
+          "tableTo": "asset_depreciation_runs",
+          "columnsFrom": [
+            "run_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "asset_depreciation_logs_asset_id_assets_id_fk": {
+          "name": "asset_depreciation_logs_asset_id_assets_id_fk",
+          "tableFrom": "asset_depreciation_logs",
+          "tableTo": "assets",
+          "columnsFrom": [
+            "asset_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "asset_depreciation_logs_id": {
+          "name": "asset_depreciation_logs_id",
           "columns": [
             "id"
           ]

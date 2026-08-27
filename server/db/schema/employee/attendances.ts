@@ -1,4 +1,4 @@
-import { mysqlTable, int, varchar, decimal, date, timestamp, boolean, text, index } from 'drizzle-orm/mysql-core'
+import { mysqlTable, int, varchar, decimal, date, timestamp, boolean, text, index, foreignKey } from 'drizzle-orm/mysql-core'
 import { employees } from './employees'
 import { permissionsType } from '../master-data/permissions-type'
 import { users } from '../auth'
@@ -31,11 +31,8 @@ export const employeeAttendanceDetails = mysqlTable(
   'employee_attendance_details',
   {
     id: int('id').primaryKey().autoincrement(),
-    attendanceId: int('attendance_id')
-      .notNull()
-      .references(() => employeeAttendances.id, { onDelete: 'cascade' }),
-    permissionTypeId: int('permission_type_id')
-      .references(() => permissionsType.id),
+    attendanceId: int('attendance_id').notNull(),
+    permissionTypeId: int('permission_type_id'),
     clock: varchar('clock', { length: 8 }).notNull(), // HH:MM:SS
     description: text('description'),
     dokumen: varchar('dokumen', { length: 255 }),
@@ -45,6 +42,17 @@ export const employeeAttendanceDetails = mysqlTable(
   },
   (table) => ({
     attendanceIdx: index('employee_attendance_details_attendance_idx').on(table.attendanceId),
+    // Nama FK dipendekkan manual; nama bawaan drizzle lewat batas 64 karakter MySQL.
+    attendanceFk: foreignKey({
+      columns: [table.attendanceId],
+      foreignColumns: [employeeAttendances.id],
+      name: 'emp_att_details_attendance_id_fk',
+    }).onDelete('cascade'),
+    permissionTypeFk: foreignKey({
+      columns: [table.permissionTypeId],
+      foreignColumns: [permissionsType.id],
+      name: 'emp_att_details_permission_type_id_fk',
+    }),
   })
 )
 
@@ -157,9 +165,7 @@ export const attendanceConsolidationDays = mysqlTable(
   'attendance_consolidation_days',
   {
     id: int('id').primaryKey().autoincrement(),
-    consolidationId: int('consolidation_id')
-      .notNull()
-      .references(() => attendanceConsolidations.id, { onDelete: 'cascade' }),
+    consolidationId: int('consolidation_id').notNull(),
     date: date('date', { mode: 'string' }).notNull(),
     
     clockIn: varchar('clock_in', { length: 8 }), // HH:MM:SS
@@ -176,5 +182,11 @@ export const attendanceConsolidationDays = mysqlTable(
   },
   (table) => ({
     consolidationIdx: index('attendance_consolidation_days_consolidation_idx').on(table.consolidationId),
+    // Nama FK dipendekkan manual; nama bawaan drizzle lewat batas 64 karakter MySQL.
+    consolidationFk: foreignKey({
+      columns: [table.consolidationId],
+      foreignColumns: [attendanceConsolidations.id],
+      name: 'att_consol_days_consolidation_id_fk',
+    }).onDelete('cascade'),
   })
 )

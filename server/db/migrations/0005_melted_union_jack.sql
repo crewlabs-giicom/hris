@@ -111,14 +111,14 @@ CREATE TABLE `insentives` (
 --> statement-breakpoint
 ALTER TABLE `employees` ADD `basic_salary` decimal(20,0);--> statement-breakpoint
 ALTER TABLE `employees` ADD `allowance` decimal(20,0);--> statement-breakpoint
-ALTER TABLE `attendance_consolidation_days` ADD CONSTRAINT `attendance_consolidation_days_consolidation_id_attendance_consolidations_id_fk` FOREIGN KEY (`consolidation_id`) REFERENCES `attendance_consolidations`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `attendance_consolidation_days` ADD CONSTRAINT `att_consol_days_consolidation_id_fk` FOREIGN KEY (`consolidation_id`) REFERENCES `attendance_consolidations`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `attendance_consolidations` ADD CONSTRAINT `attendance_consolidations_employee_id_employees_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `deductions` ADD CONSTRAINT `deductions_employee_id_employees_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `deductions` ADD CONSTRAINT `deductions_created_by_users_id_fk` FOREIGN KEY (`created_by`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `deductions` ADD CONSTRAINT `deductions_updated_by_users_id_fk` FOREIGN KEY (`updated_by`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `deductions` ADD CONSTRAINT `deductions_deleted_by_users_id_fk` FOREIGN KEY (`deleted_by`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `employee_attendance_details` ADD CONSTRAINT `employee_attendance_details_attendance_id_employee_attendances_id_fk` FOREIGN KEY (`attendance_id`) REFERENCES `employee_attendances`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `employee_attendance_details` ADD CONSTRAINT `employee_attendance_details_permission_type_id_permissions_type_id_fk` FOREIGN KEY (`permission_type_id`) REFERENCES `permissions_type`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `employee_attendance_details` ADD CONSTRAINT `emp_att_details_attendance_id_fk` FOREIGN KEY (`attendance_id`) REFERENCES `employee_attendances`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `employee_attendance_details` ADD CONSTRAINT `emp_att_details_permission_type_id_fk` FOREIGN KEY (`permission_type_id`) REFERENCES `permissions_type`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `employee_attendances` ADD CONSTRAINT `employee_attendances_employee_id_employees_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `insentives` ADD CONSTRAINT `insentives_employee_id_employees_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `insentives` ADD CONSTRAINT `insentives_created_by_users_id_fk` FOREIGN KEY (`created_by`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint

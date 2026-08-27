@@ -4284,8 +4284,8 @@
         }
       },
       "foreignKeys": {
-        "manual_attendance_attachments_manual_attendance_id_manual_attendances_id_fk": {
-          "name": "manual_attendance_attachments_manual_attendance_id_manual_attendances_id_fk",
+        "manual_att_attach_manual_attendance_id_fk": {
+          "name": "manual_att_attach_manual_attendance_id_fk",
           "tableFrom": "manual_attendance_attachments",
           "tableTo": "manual_attendances",
           "columnsFrom": [
@@ -4992,8 +4992,8 @@
         }
       },
       "foreignKeys": {
-        "attendance_consolidation_days_consolidation_id_attendance_consolidations_id_fk": {
-          "name": "attendance_consolidation_days_consolidation_id_attendance_consolidations_id_fk",
+        "att_consol_days_consolidation_id_fk": {
+          "name": "att_consol_days_consolidation_id_fk",
           "tableFrom": "attendance_consolidation_days",
           "tableTo": "attendance_consolidations",
           "columnsFrom": [
@@ -5554,8 +5554,8 @@
         }
       },
       "foreignKeys": {
-        "employee_attendance_details_attendance_id_employee_attendances_id_fk": {
-          "name": "employee_attendance_details_attendance_id_employee_attendances_id_fk",
+        "emp_att_details_attendance_id_fk": {
+          "name": "emp_att_details_attendance_id_fk",
           "tableFrom": "employee_attendance_details",
           "tableTo": "employee_attendances",
           "columnsFrom": [
@@ -5567,8 +5567,8 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "employee_attendance_details_permission_type_id_permissions_type_id_fk": {
-          "name": "employee_attendance_details_permission_type_id_permissions_type_id_fk",
+        "emp_att_details_permission_type_id_fk": {
+          "name": "emp_att_details_permission_type_id_fk",
           "tableFrom": "employee_attendance_details",
           "tableTo": "permissions_type",
           "columnsFrom": [

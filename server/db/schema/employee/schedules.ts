@@ -1,4 +1,4 @@
-import { mysqlTable, varchar, timestamp, int, date, text, index } from 'drizzle-orm/mysql-core'
+import { mysqlTable, varchar, timestamp, int, date, text, index, foreignKey } from 'drizzle-orm/mysql-core'
 import { sql } from 'drizzle-orm'
 import { employees } from './employees'
 import { shifts } from '../master-data'
@@ -98,9 +98,7 @@ export const manualAttendanceAttachments = mysqlTable(
   'manual_attendance_attachments',
   {
     id: int('id').primaryKey().autoincrement(),
-    manualAttendanceId: int('manual_attendance_id')
-      .notNull()
-      .references(() => manualAttendances.id),
+    manualAttendanceId: int('manual_attendance_id').notNull(),
     attachment: varchar('attachment', { length: 255 }).notNull(),
     createdAt: timestamp('created_at').notNull().default(sql`CURRENT_TIMESTAMP`),
     updatedAt: timestamp('updated_at')
@@ -110,5 +108,11 @@ export const manualAttendanceAttachments = mysqlTable(
   },
   (table) => ({
     attendanceIdx: index('manual_attendance_attachments_attendance_idx').on(table.manualAttendanceId),
+    // Nama FK dipendekkan manual; nama bawaan drizzle 76 karakter, lewat batas 64 MySQL.
+    manualAttendanceFk: foreignKey({
+      columns: [table.manualAttendanceId],
+      foreignColumns: [manualAttendances.id],
+      name: 'manual_att_attach_manual_attendance_id_fk',
+    }),
   })
 )

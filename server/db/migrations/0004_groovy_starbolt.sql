@@ -61,7 +61,7 @@ CREATE TABLE `schedule` (
 	CONSTRAINT `schedule_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
-ALTER TABLE `manual_attendance_attachments` ADD CONSTRAINT `manual_attendance_attachments_manual_attendance_id_manual_attendances_id_fk` FOREIGN KEY (`manual_attendance_id`) REFERENCES `manual_attendances`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `manual_attendance_attachments` ADD CONSTRAINT `manual_att_attach_manual_attendance_id_fk` FOREIGN KEY (`manual_attendance_id`) REFERENCES `manual_attendances`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `manual_attendances` ADD CONSTRAINT `manual_attendances_employee_id_employees_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `manual_attendances` ADD CONSTRAINT `manual_attendances_created_by_users_id_fk` FOREIGN KEY (`created_by`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `manual_attendances` ADD CONSTRAINT `manual_attendances_updated_by_users_id_fk` FOREIGN KEY (`updated_by`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint

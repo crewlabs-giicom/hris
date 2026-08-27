@@ -3517,8 +3517,8 @@
         }
       },
       "foreignKeys": {
-        "manual_attendance_attachments_manual_attendance_id_manual_attendances_id_fk": {
-          "name": "manual_attendance_attachments_manual_attendance_id_manual_attendances_id_fk",
+        "manual_att_attach_manual_attendance_id_fk": {
+          "name": "manual_att_attach_manual_attendance_id_fk",
           "tableFrom": "manual_attendance_attachments",
           "tableTo": "manual_attendances",
           "columnsFrom": [
